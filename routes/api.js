@@ -16,8 +16,8 @@ module.exports = function(app){
      * Cuidado con el orden de resolución de rutas
      * por el URL como esta:
      */
-    app.get(`${API_BASE}/user/:id`, (req, res)=>{
-        const query = db.getUserById(req.params.id);
+    app.get(`${API_BASE}/user/:id`, async (req, res)=>{
+        const query = await db.getUserById(req.params.id);
         res.json(query);
     });
     /**
