@@ -8,6 +8,10 @@ module.exports = {
         return users;
     },
     getUserById: function(id) {
+        const db = mongo.instance().db(DB_NAME);
+        const users = db.collection("users").find({
+            _id: id
+        }).toArray();
         return users.filter(user=>user._id===id);
     },
     getUserByAgeRange: function(lower = 0, higher = 99) {
