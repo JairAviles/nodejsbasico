@@ -6,13 +6,24 @@ module.exports = () => {
 	const loop = setInterval(checkQue, 5000);
 
 	function checkQue() {
-		console.info(`Ques: { Players: ${Object.keys(players).legth}, OnWait: ${onWait.length} }`)
-		while (onWait.length > 2) {
+		console.info(`Ques: { Players: ${Object.keys(players).length}, OnWait: ${onWait.length}, OnMatch: ${Object.keys(onMatch).length} }`)
+		while (onWait.length >= 2) {
 			console.log("Constructing room...");
 			const p1 = players[onWait.pop()].user.name;
 			const p2 = players[onWait.pop()].user.name;
 			console.log(`We created a match for ${p1} and ${p2}`);
 		}
+	}
+
+	function createMatch(p1Id, p2Id) {
+		const roomId = p1Id + p2Id;
+		players[p1Id].roomId = roomId;
+		players[p2Id].roomId = roomId;
+
+		if (!onMatch[roomId]) onMatch[roomId] = {}
+
+		players[p1Id].socket.emit("gameState", {});
+		players[p2Id].socket.emit("gameState", {});
 	}
 
 	return {
