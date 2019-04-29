@@ -3,11 +3,17 @@ module.exports = () => {
 		onWait = [],
 		onMatch = {};
 
-	/**
-	 * 
-	 * Comience aqui
-	 * 
-	 */
+	const loop = setInterval(checkQue, 5000);
+
+	function checkQue() {
+		console.info(`Ques: { Players: ${Object.keys(players).legth}, OnWait: ${onWait.length} }`)
+		while (onWait.length > 2) {
+			console.log("Constructing room...");
+			const p1 = players[onWait.pop()].user.name;
+			const p2 = players[onWait.pop()].user.name;
+			console.log(`We created a match for ${p1} and ${p2}`);
+		}
+	}
 
 	return {
 		// user: {socket, user}
